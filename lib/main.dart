@@ -20,9 +20,9 @@ void main() async{
   {
     await Firebase.initializeApp(
     options:const FirebaseOptions(
-    apiKey: "AIzaSyCrHgWS96sn4fRRJ-Q1Vowku10htFo9-9w", 
-    appId: "1:831630626654:web:0f4a350f42ba19a17e09cf",
-    messagingSenderId: "831630626654",
+    apiKey: , 
+    appId: "",
+    messagingSenderId: "",
    
     projectId: "infortech-15683",
     storageBucket: "infortech-15683.appspot.com",
