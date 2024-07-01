@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="google_api_key" translatable="false">"AIzaSyCrHgWS96sn4fRRJ-Q1Vowku10htFo9-9w"</string>
+    <string name="google_app_id" translatable="false">"1:831630626654:web:0f4a350f42ba19a17e09cf"</string>
+    <string name="google_storage_bucket" translatable="false">"infortech-15683.appspot.com"</string>
+    <string name="project_id" translatable="false">"infortech-15683"</string>
+    <string name="gcm_defaultSenderId" translatable="false">"831630626654"</string>
+</resources>

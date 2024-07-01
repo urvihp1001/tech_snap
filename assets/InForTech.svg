@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 50">
+  <!-- Background rectangle -->
+  <rect x="0" y="0" width="200" height="50" fill="#000" />
+  <!-- Text: InForTech -->
+  <text x="10" y="35" font-family="Courier New, monospace" font-size="24" fill="#0F0">InForTech</text>
+  <!-- Binary code -->
+ 
+</svg>

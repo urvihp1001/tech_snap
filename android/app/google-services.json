@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "831630626654",
+    "project_id": "infortech-15683",
+    "storage_bucket": "infortech-15683.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:831630626654:android:0f4a350f42ba19a17e09cf",
+        "android_client_info": {
+          "package_name": "com.example.infortech"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCp9bJ-g7cFq90AO2kvMC1bREligITtcQI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:831630626654:android:6c3262f18d942e867e09cf",
+        "android_client_info": {
+          "package_name": "com.example.tech_snap"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCp9bJ-g7cFq90AO2kvMC1bREligITtcQI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
