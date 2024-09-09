@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tech_snap/providers/user_provider.dart';
-import 'package:tech_snap/utils/globals.dart';
+import 'package:JHC_MIS/providers/user_provider.dart';
+import 'package:JHC_MIS/utils/globals.dart';
 
 class ResponsiveLayout extends StatefulWidget {
   final Widget mobileScreenLayout;

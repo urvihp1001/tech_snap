@@ -5,14 +5,14 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tech_snap/providers/user_provider.dart';
-import 'package:tech_snap/responsive/mobile_screen_layout.dart';
-import 'package:tech_snap/responsive/responsive_layout_screen.dart';
-import 'package:tech_snap/responsive/web_screen_layout.dart';
-import 'package:tech_snap/screens/login_screen.dart';
-import 'package:tech_snap/screens/signup_screen.dart';
+import 'package:JHC_MIS/providers/user_provider.dart';
+import 'package:JHC_MIS/responsive/mobile_screen_layout.dart';
+import 'package:JHC_MIS/responsive/responsive_layout_screen.dart';
+import 'package:JHC_MIS/responsive/web_screen_layout.dart';
+import 'package:JHC_MIS/screens/login_screen.dart';
+
 //import 'package:flutter/widgets.dart';
-import 'package:tech_snap/utils/colors.dart';
+import 'package:JHC_MIS/utils/colors.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,8 +20,8 @@ void main() async{
   {
     await Firebase.initializeApp(
     options:const FirebaseOptions(
-    apiKey: , 
-    appId: "",
+    apiKey: "AIzaSyCrHgWS96sn4fRRJ-Q1Vowku10htFo9-9w", 
+    appId: "1:831630626654:web:cd0df057bd41a1967e09cf",
     messagingSenderId: "",
    
     projectId: "infortech-15683",
@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
       ChangeNotifierProvider(create: (_)=>Userprovider())
     ],//bigger app more providers
     child: MaterialApp(
-      title: 'tech_snap',
+      title: 'JHC_MIS',
       theme: ThemeData.dark().copyWith(
        
       ),

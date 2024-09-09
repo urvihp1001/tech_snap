@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tech_snap/utils/colors.dart';
+import 'package:JHC_MIS/utils/colors.dart';
 
 class PostCard extends StatelessWidget {
   const PostCard({super.key});

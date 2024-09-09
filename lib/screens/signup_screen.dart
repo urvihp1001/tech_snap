@@ -1,17 +1,18 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:tech_snap/resources/auth_methods.dart';
-import 'package:tech_snap/responsive/mobile_screen_layout.dart';
-import 'package:tech_snap/responsive/responsive_layout_screen.dart';
-import 'package:tech_snap/responsive/web_screen_layout.dart';
-import 'package:tech_snap/screens/login_screen.dart';
-import 'package:tech_snap/utils/colors.dart';
-import 'package:tech_snap/utils/utils.dart';
-import 'package:tech_snap/widgets/glass_morph.dart';
-import 'package:tech_snap/widgets/text_field_input.dart';
+import 'package:JHC_MIS/resources/auth_methods.dart';
+import 'package:JHC_MIS/responsive/mobile_screen_layout.dart';
+import 'package:JHC_MIS/responsive/responsive_layout_screen.dart';
+import 'package:JHC_MIS/responsive/web_screen_layout.dart';
+import 'package:JHC_MIS/screens/login_screen.dart';
+import 'package:JHC_MIS/utils/colors.dart';
+import 'package:JHC_MIS/utils/utils.dart';
+import 'package:JHC_MIS/widgets/glass_morph.dart';
+import 'package:JHC_MIS/widgets/text_field_input.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -21,30 +22,25 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-  final TextEditingController bioController = TextEditingController();
-  final TextEditingController usernameController = TextEditingController();
+  
+  final TextEditingController roleController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  Uint8List? _image;
+  String? selectedRole;
   bool _isLoading = false;
   final PageController _pageController = PageController();
 
   @override
   void dispose() {
     super.dispose();
-    bioController.dispose();
-    usernameController.dispose();
+   
+    roleController.dispose();
     emailController.dispose();
     passwordController.dispose();
     _pageController.dispose();
   }
 
-  void selectImage() async {
-    Uint8List im = await pickImage(ImageSource.gallery);
-    setState(() {
-      _image = im;
-    });
-  }
+  
 
   void signUpUser() async {
     setState(() {
@@ -53,9 +49,8 @@ class _SignupScreenState extends State<SignupScreen> {
     String res = await AuthMethods().signUpUser(
         email: emailController.text,
         password: passwordController.text,
-        username: usernameController.text,
-        bio: bioController.text,
-        file: _image!);
+        role: selectedRole!,
+        );
     setState(() {
       _isLoading = false;
     });
@@ -82,8 +77,11 @@ class _SignupScreenState extends State<SignupScreen> {
       body: SafeArea(
         child: Container(
           decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage('assets/city.jpg'), fit: BoxFit.cover)),
+             gradient: LinearGradient(colors: [gradientStartColor,gradientEndColor],
+             begin: Alignment.topCenter,
+             end:Alignment.bottomCenter,
+             )
+             ),
           padding: EdgeInsets.symmetric(horizontal: 32),
           width: double.infinity,
           child: Column(
@@ -99,7 +97,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     controller: _pageController,
                     children: [
                       buildFirstPage(),
-                      buildSecondPage(),
+                    
                     ],
                   ),
                 ),
@@ -109,7 +107,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    child: Text("Already have an account? "),
+                    child: Text("Already have an account? ", style: TextStyle(fontFamily: 'Ubuntu', color: blueColor),),
                     padding: const EdgeInsets.symmetric(vertical: 8),
                   ),
                   GestureDetector(
@@ -117,7 +115,8 @@ class _SignupScreenState extends State<SignupScreen> {
                     child: Container(
                       child: Text(
                         "Log in.",
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                          fontFamily: 'Ubuntu', fontWeight: FontWeight.bold, color: blueColor),
                       ),
                       padding: const EdgeInsets.symmetric(vertical: 8),
                     ),
@@ -138,10 +137,12 @@ class _SignupScreenState extends State<SignupScreen> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          SvgPicture.asset(
-            "assets/techsnap-modified.svg",
-            color: Colors.blueGrey[50],
-            height: 64,
+          Text("JHC-MIS",
+          
+          style: TextStyle(fontSize: 60,
+          color: blueColor,
+            fontFamily: 'Ubuntu',
+          fontWeight: FontWeight.bold,),
           ),
           SizedBox(height: 48),
           TextFieldInput(
@@ -156,71 +157,21 @@ class _SignupScreenState extends State<SignupScreen> {
             textInputType: TextInputType.text,
             isPass: true,
           ),
-          SizedBox(height: 24),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextButton(
-                onPressed: () {
-                  _pageController.nextPage(
-                      duration: Duration(milliseconds: 300),
-                      curve: Curves.easeIn);
-                },
-                child: Text("Next"),
-              ),
-            ],
+            SizedBox(height: 24),
+          DropdownButtonFormField( style: TextStyle(color: Colors.red), items: ['Admin','Engineer','Faculty'].map((role)=>DropdownMenuItem(child: Text(role),value: role,)).toList(), onChanged: (value){setState(() {
+            selectedRole=value;
+            
+          });},
+          decoration: InputDecoration(
+            labelText: "Select Role",
+            labelStyle: TextStyle(color: Colors.black),
+            
+            border:OutlineInputBorder(),
+            contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           ),
-        ],
-      ),
-    );
-  }
+          ),
 
-  Widget buildSecondPage() {
-    return Padding(
-      padding: EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Stack(
-            children: [
-              _image != null
-                  ? CircleAvatar(
-                      radius: 64,
-                      backgroundImage: MemoryImage(_image!),
-                    )
-                  : CircleAvatar(
-                      radius: 64,
-                      backgroundColor: Colors.grey[200],
-                      child: Icon(
-                        Icons.person,
-                        size: 64,
-                        color: Colors.grey[800],
-                      ),
-                    ),
-              Positioned(
-                bottom: -10,
-                left: 80,
-                child: IconButton(
-                  icon: Icon(Icons.add_a_photo),
-                  onPressed: selectImage,
-                ),
-              )
-            ],
-          ),
-          SizedBox(height: 24),
-          TextFieldInput(
-            textEditingController: usernameController,
-            hintText: 'Enter your username',
-            textInputType: TextInputType.text,
-          ),
-          SizedBox(height: 24),
-          TextFieldInput(
-            textEditingController: bioController,
-            hintText: 'Enter your bio',
-            textInputType: TextInputType.text,
-          ),
-          SizedBox(height: 24),
+           SizedBox(height: 24),
           InkWell(
             onTap: signUpUser,
             child: Container(
@@ -241,8 +192,11 @@ class _SignupScreenState extends State<SignupScreen> {
               ),
             ),
           ),
-        ],
+        ]
       ),
     );
   }
-}
+
+  
+  }
+

@@ -1,6 +1,8 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+package="com.example.tech_snap"
+>
     <application
-        android:label="tech_snap"
+        android:label="JHC_MIS"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

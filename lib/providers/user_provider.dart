@@ -1,15 +1,14 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/foundation.dart';
-import 'package:tech_snap/models/user.dart';
-import 'package:tech_snap/resources/auth_methods.dart';
+import 'package:JHC_MIS/models/user.dart';
+import 'package:JHC_MIS/resources/auth_methods.dart';
 
 class Userprovider with ChangeNotifier {
   User? _user; // private field
   final AuthMethods _authMethods = AuthMethods();
 
-  User get getUser => _user??User(username: '', bio: '', email: '', followers: [], following: [], photoURL:'',
-   subscriptions:[], uid: '');
+  User get getUser => _user??User(role: '',  email: '',  uid: '');
 
   // refresh user
   Future<void> refreshUser() async {

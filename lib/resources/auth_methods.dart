@@ -4,8 +4,8 @@
 import "package:cloud_firestore/cloud_firestore.dart";
 import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/foundation.dart";
-import "package:tech_snap/models/user.dart" as model;
-import "package:tech_snap/resources/storage_methods.dart";
+import "package:JHC_MIS/models/user.dart" as model;
+
 
 class AuthMethods{
   final FirebaseAuth _auth=FirebaseAuth.instance;
@@ -22,30 +22,27 @@ class AuthMethods{
     {
       required String email,//auth
       required String password,//auth
-      required String username,//firestore
-      required String bio,//firestore
-     Uint8List? file, //i guess profile pic //firestore
+      required String role,//firestore
+       //i guess profile pic //firestore
     }
   ) async{
 String res="";
 try{
-if(email.isNotEmpty||password.isNotEmpty||username.isNotEmpty||bio.isNotEmpty)
+if(email.isNotEmpty||password.isNotEmpty||role.isNotEmpty)
 {
 UserCredential cred= await _auth.createUserWithEmailAndPassword(email: email, password: password);
 print(cred.user!.uid);
 //check if upload
-String photoURL= await Storage().uploadImageToSource('profilePics', file!, false);//create Profilepics folder
 
-model.User user= model.User(username: username, bio: bio, email: email,
- followers:[], following: [], photoURL: photoURL, 
- subscriptions: [], uid: cred.user!.uid);
+model.User user= model.User(uid:cred.user!.uid,role: role,  email: email,
+ );
 
 //add user to our database
 
 await _firestore.collection("users").doc(cred.user!.uid).set(user.toJson(),);//converts user obj to JSON which firestore stores as doc
 //document oriented database
 /*await _firestore.collection('users').add({
- 'username':username,
+ 'userrole':userrole,
   'uid':cred.user!.uid,//every user's uid
   email:email,
   bio:bio,
@@ -78,6 +75,7 @@ return res;
   }on FirebaseAuthException
   catch(err){
     res=err.toString();
+
   }
   return res;
   }
