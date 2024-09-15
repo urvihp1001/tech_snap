@@ -1,7 +1,9 @@
+import 'package:JHC_MIS/api/firebase_api.dart';
 import 'package:JHC_MIS/utils/colors.dart';
 import 'package:JHC_MIS/widgets/glass_morph.dart';
 import 'package:JHC_MIS/widgets/text_field_input.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
 class AddTask extends StatefulWidget {
@@ -132,7 +134,7 @@ class _AddTaskPageState extends State<AddTask> {
       'timestamp':FieldValue.serverTimestamp(),
       'roles':['admin','engineer'],
       });
-
+FirebaseMessaging.onBackgroundMessage(handleBackgroundMessage);
       // Start a 24-hour timer for the task
      Future.delayed(Duration(hours:24),()async{
       DocumentSnapshot taskSnapshot=await taskRef.get();
@@ -348,9 +350,12 @@ class _AddTaskPageState extends State<AddTask> {
                           if (_selectedIssue == 'Other') ...[
                             SizedBox(height: 16),
                             TextField(
+                              style: TextStyle(color: blueColor,fontFamily: 'Ubuntu'),
                               controller: _issueController,
                               decoration: InputDecoration(
                                 labelText: "Describe the issue",
+                                labelStyle: TextStyle(color: blueColor),
+                                
                                 border: OutlineInputBorder(),
                               ),
                             ),
@@ -363,18 +368,28 @@ class _AddTaskPageState extends State<AddTask> {
                                 decoration: InputDecoration(
                                   labelText: _selectedDateTime == null ? "Select Date and Time" : _selectedDateTime!.toString(),
                                   border: OutlineInputBorder(),
+                                  labelStyle: TextStyle(color: blueColor),
                                 ),
+                                style:TextStyle(color: blueColor,fontFamily: 'Ubuntu') ,
                               ),
                             ),
                           ),
                           SizedBox(height: 24),
-                          ElevatedButton(
-                            onPressed: _addTask,
-                            child: Text("Add Task"),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.blueAccent,
-                            ),
+                           InkWell(
+                        onTap: _addTask,
+                        child: Container(
+                          child:  Text("Add Task"),
+                          width:double.infinity,
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.symmetric(vertical: 12),
+                          decoration: ShapeDecoration(
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(4))),
+                            color: blueColor,
                           ),
+                        ),
+                      ),
                         ],
                       ),
                     ),

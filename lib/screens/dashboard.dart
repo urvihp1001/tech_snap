@@ -2,6 +2,7 @@ import 'package:JHC_MIS/screens/add_task.dart';
 import 'package:JHC_MIS/screens/admindashboard.dart';
 import 'package:JHC_MIS/screens/deviceProfilePage.dart';
 import 'package:JHC_MIS/screens/device_profile.dart';
+import 'package:JHC_MIS/screens/report.dart';
 import 'package:JHC_MIS/utils/colors.dart';
 import 'package:JHC_MIS/widgets/custom_dash_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -118,7 +119,9 @@ class _DashboardState extends State<Dashboard> {
                                 child: DashboardButton(
                                   text: 'Report',
                                   isSelected: false,
-                                  onPressed: () {},
+                                  onPressed:  () { Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => WeeklyTasks()),);},
                                 ),
                               ),
                             ),

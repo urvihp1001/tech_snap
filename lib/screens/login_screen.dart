@@ -1,4 +1,6 @@
 import 'package:JHC_MIS/screens/forgot_password.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:JHC_MIS/resources/auth_methods.dart';
@@ -45,7 +47,8 @@ class _LoginScreenState extends State<LoginScreen> {
       _isLoading = false;
     });
     
-    if (res == "success") {
+    if (res == "success") { 
+
       Navigator.of(context).pushReplacement(MaterialPageRoute(
         builder: (context) => const ResponsiveLayout(
           webScreenLayout: webScreenLayout(),

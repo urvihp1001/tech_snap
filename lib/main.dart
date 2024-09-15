@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:JHC_MIS/api/firebase_api.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -20,7 +22,7 @@ void main() async{
   {
     await Firebase.initializeApp(
     options:const FirebaseOptions(
-    apiKey: "", 
+    apiKey: "AIzaSyCrHgWS96sn4fRRJ-Q1Vowku10htFo9-9w", 
     appId: "1:831630626654:web:cd0df057bd41a1967e09cf",
     messagingSenderId: "",
    
@@ -28,9 +30,13 @@ void main() async{
     storageBucket: "infortech-15683.appspot.com",
    
     ),
+
     );
+   
   }else{
+   
 await Firebase.initializeApp();
+await FirebaseApi().initNotifications();
   }
   runApp(const MyApp());
 }
@@ -38,7 +44,7 @@ await Firebase.initializeApp();
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  
   @override
   Widget build(BuildContext context) {
     return MultiProvider(providers:[
