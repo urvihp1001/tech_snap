@@ -195,6 +195,7 @@ class _DeviceProfileState extends State<DeviceProfile> {
                               alignment: Alignment.centerLeft,
                               decoration: BoxDecoration(
                                 border: Border.all(color: blueColor),
+                                
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               child: Text(
@@ -204,8 +205,7 @@ class _DeviceProfileState extends State<DeviceProfile> {
                                 style: TextStyle(
                                   fontSize: 16,
                                   color: _selectedDateTime == null
-                                      ? Colors.grey
-                                      : Colors.white,
+                                      ? blueColor                                    : Colors.blue,
                                 ),
                               ),
                             ),
