@@ -3,6 +3,7 @@ import 'package:JHC_MIS/screens/admindashboard.dart';
 import 'package:JHC_MIS/screens/comments.dart';
 import 'package:JHC_MIS/screens/deviceProfilePage.dart';
 import 'package:JHC_MIS/screens/device_profile.dart';
+import 'package:JHC_MIS/screens/engineerDashboard.dart';
 import 'package:JHC_MIS/screens/report.dart';
 import 'package:JHC_MIS/utils/colors.dart';
 import 'package:JHC_MIS/widgets/custom_dash_button.dart';
@@ -13,14 +14,14 @@ import 'package:JHC_MIS/models/user.dart' as model;
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart'; // To format timestamps
 
-class Dashboard extends StatefulWidget {
-  const Dashboard({super.key});
+class engDashboard extends StatefulWidget {
+  const engDashboard({super.key});
 
   @override
-  State<Dashboard> createState() => _DashboardState();
+  State<engDashboard> createState() => _engDashboardState();
 }
 
-class _DashboardState extends State<Dashboard> {
+class _engDashboardState extends State<engDashboard> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -56,7 +57,7 @@ class _DashboardState extends State<Dashboard> {
       key: _scaffoldKey, // Assign the GlobalKey to the Scaffold
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text("Admin Dashboard"),
+        title: Text("Engineer Dashboard"),
         backgroundColor: blueColor,
         actions: [
           IconButton(
@@ -193,7 +194,7 @@ class _DashboardState extends State<Dashboard> {
                                   onPressed: () {
                                     Navigator.push(
                                       context,
-                                      MaterialPageRoute(builder: (context) => AdminDashboard()),
+                                      MaterialPageRoute(builder: (context) => EngineerDashboard()),
                                     );
                                   },
                                 ),
@@ -205,22 +206,6 @@ class _DashboardState extends State<Dashboard> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: DashboardButton(
-                                  text: 'Report',
-                                  isSelected: false,
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(builder: (context) => WeeklyTasks()),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                            SizedBox(width: size.width * 0.04),
                             Expanded(
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),

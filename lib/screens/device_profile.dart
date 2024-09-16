@@ -205,7 +205,7 @@ class _DeviceProfileState extends State<DeviceProfile> {
                                 style: TextStyle(
                                   fontSize: 16,
                                   color: _selectedDateTime == null
-                                      ? blueColor                                    : Colors.blue,
+                                      ? blueColor                                    : blueColor,
                                 ),
                               ),
                             ),
