@@ -126,29 +126,33 @@ class _AddTaskPageState extends State<AddTask> {
         'status': 'pending',
         'created_at': FieldValue.serverTimestamp(),
         'comments': [],
+        'requestTimeExtension':false,
+        'timeUpdated':false,
+        'completionDate':null,
       });
 
       // Send notification to admin and engineers
-      await FirebaseFirestore.instance.collection('notifications').add({'task_id':taskRef.id,
-      'message':'A new task is added.',
-      'timestamp':FieldValue.serverTimestamp(),
-      'roles':['admin','engineer'],
+      await FirebaseFirestore.instance.collection('notifications').add({
+'task_id':taskRef.id,
+'message':'A new task is added',
+'timestamp':FieldValue.serverTimestamp(),
+'roles':['admin','engineer'],
       });
-FirebaseMessaging.onBackgroundMessage(handleBackgroundMessage);
-      // Start a 24-hour timer for the task
-     Future.delayed(Duration(hours:24),()async{
-      DocumentSnapshot taskSnapshot=await taskRef.get();
-      if(taskSnapshot.exists && taskSnapshot['status']=='pending')
-      {
-        await taskRef.update({'status':'red-flagged'});
-        await FirebaseFirestore.instance.collection('notifications').add({
-          'task_id':taskRef.id,
-          'message':'Task unresolved since 24 hrs',
-           'timestamp':FieldValue.serverTimestamp(),
-      'roles':['admin','engineer'],
-        });
-      }
-     });
+Future.delayed(Duration(hours:24),
+() async{
+  DocumentSnapshot taskSnapshot=await taskRef.get();
+  if(taskSnapshot.exists&&taskSnapshot['status']=='pending')
+  {
+    await taskRef.update({'status':'red-flagged'});
+    await FirebaseFirestore.instance.collection('notifications').add({
+'task_id':taskRef.id,
+'message':'Task unresolved since 24 hrs',
+'timestamp':FieldValue.serverTimestamp(),
+'roles':['admin','engineer'],
+      });
+  }
+}
+);
 
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Task added successfully')));
       _issueController.clear();

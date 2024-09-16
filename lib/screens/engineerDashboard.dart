@@ -1,26 +1,15 @@
-import 'package:JHC_MIS/utils/colors.dart';
-import 'package:JHC_MIS/widgets/glassmorphic_profile.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 
-class AdminDashboard extends StatelessWidget {
+class EngineerDashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Admin Dashboard"),backgroundColor: blueColor,
+        title: Text("Engineer Dashboard"),
       ),
-      body: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [gradientStartColor, gradientEndColor],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-            ),child:StreamBuilder(
+      body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('tasks').snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -39,29 +28,29 @@ class AdminDashboard extends StatelessWidget {
               String status = task['status'];
               bool requestTimeExtension = task['requestTimeExtension'];
 
+              bool canRequestExtension = !requestTimeExtension && status != 'completed';
+
               return Padding(
-                
                 padding: const EdgeInsets.only(bottom: 16.0),
-                child: GlassmorphicContainer(
-                  child: SingleChildScrollView(
-                    child:Padding(
+                child: Card(
+                  child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           "Task ID: ${task.id}",
-                          style: TextStyle(color:blueColor,fontWeight: FontWeight.bold, fontSize: 18),
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                         ),
                         SizedBox(height: 8),
-                        _buildTaskDetailRow("Building", task['building'], blueColor),
-                        _buildTaskDetailRow("Floor", task['floor_number'],blueColor),
-                        _buildTaskDetailRow("Room", task['room_number'],blueColor),
-                        _buildTaskDetailRow("Device", task['device_id'],blueColor),
-                        _buildTaskDetailRow("Issue", task['issue'],blueColor),
+                        _buildTaskDetailRow("Building", task['building']),
+                        _buildTaskDetailRow("Floor", task['floor_number']),
+                        _buildTaskDetailRow("Room", task['room_number']),
+                        _buildTaskDetailRow("Device", task['device_id']),
+                        _buildTaskDetailRow("Issue", task['issue']),
                         _buildTaskDetailRow(
                           "Date",
-                          DateFormat('yyyy-MM-dd – kk:mm').format(taskDateTime),blueColor
+                          DateFormat('yyyy-MM-dd – kk:mm').format(taskDateTime),
                         ),
                         _buildTaskDetailRow("Status", status, isOverdue ? Colors.red : Colors.green),
                         StreamBuilder<DateTime>(
@@ -79,34 +68,26 @@ class AdminDashboard extends StatelessWidget {
                           },
                         ),
                         SizedBox(height: 16),
-                        if (requestTimeExtension && status != 'completed') ...[
-                          ElevatedButton(
-                            onPressed: () {
-                              _approveExtension(context, task.id);
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.green,
-                            ),
-                            child: Text("Approve Request"),
+                        ElevatedButton(
+                          onPressed: canRequestExtension
+                              ? () => _requestExtension(context, task.id)
+                              : null,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: canRequestExtension ? Colors.orange : Colors.grey,
                           ),
-                        ] else if (requestTimeExtension) ...[
-                          Text(
-                            "Approved",
-                            style: TextStyle(color: Colors.green),
+                          child: Text(
+                            requestTimeExtension ? "Requested" : "Request Extension",
                           ),
-                        ],
+                        ),
                       ],
                     ),
                   ),
-                ),
                 ),
               );
             },
           );
         },
       ),
-      ),
-      
     );
   }
 
@@ -122,30 +103,29 @@ class AdminDashboard extends StatelessWidget {
       children: [
         Text(
           "$label: ",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: blueColor),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
         ),
         Text(
           value,
-          style: TextStyle(fontSize: 14, color: color ??blueColor),
+          style: TextStyle(fontSize: 14, color: color ?? Colors.black),
         ),
       ],
     );
   }
 
-  void _approveExtension(BuildContext context, String taskId) {
+  void _requestExtension(BuildContext context, String taskId) {
     FirebaseFirestore.instance.collection('tasks').doc(taskId).update({
-      'requestTimeExtension': false,
+      'requestTimeExtension': true,
     }).then((_) {
-
-      print('Extension request approved');
+      print('Extension request sent');
        FirebaseFirestore.instance.collection('notifications').add({
 'task_id':taskId,
-'message':'A new task is added',
+'message':'Extension Requested',
 'timestamp':FieldValue.serverTimestamp(),
 'roles':['admin','engineer'],
       });
     }).catchError((e) {
-      print('Error approving extension request: $e');
+      print('Error sending extension request: $e');
     });
   }
 }
