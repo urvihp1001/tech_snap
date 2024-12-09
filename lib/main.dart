@@ -16,20 +16,7 @@ import 'package:tech_snap/utils/colors.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
-  if(kIsWeb)
-  {
-    await Firebase.initializeApp(
-    options:const FirebaseOptions(
-    apiKey: "AIzaSyCrHgWS96sn4fRRJ-Q1Vowku10htFo9-9w", 
-    appId: "1:831630626654:web:0f4a350f42ba19a17e09cf",
-    messagingSenderId: "831630626654",
-   
-    projectId: "infortech-15683",
-    storageBucket: "infortech-15683.appspot.com",
-   
-    ),
-    );
-  }else{
+ {
 await Firebase.initializeApp();
   }
   runApp(const MyApp());
@@ -45,7 +32,7 @@ class MyApp extends StatelessWidget {
       ChangeNotifierProvider(create: (_)=>Userprovider())
     ],//bigger app more providers
     child: MaterialApp(
-      title: 'tech_snap',
+      title: 'bytes',
       theme: ThemeData.dark().copyWith(
        
       ),
@@ -78,5 +65,4 @@ class MyApp extends StatelessWidget {
   }
 
 }
-
 

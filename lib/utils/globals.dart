@@ -6,7 +6,7 @@ const webScreenSize=600;
 const homeScreenItems=[
           FeedScreen(),
           Text("search"),
-         AddPostScreen(),
+        AddPostScreen(),
           Text("topics"),
           Text("profile")
 

@@ -1,40 +1,21 @@
 {
   "project_info": {
-    "project_number": "831630626654",
-    "project_id": "infortech-15683",
-    "storage_bucket": "infortech-15683.appspot.com"
+    "project_number": "1077568809866",
+    "project_id": "bytes-179cd",
+    "storage_bucket": "bytes-179cd.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:831630626654:android:0f4a350f42ba19a17e09cf",
+        "mobilesdk_app_id": "1:1077568809866:android:dffcfeca3f17b8207ff673",
         "android_client_info": {
-          "package_name": "com.example.infortech"
+          "package_name": "com.android.application"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCp9bJ-g7cFq90AO2kvMC1bREligITtcQI"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:831630626654:android:6c3262f18d942e867e09cf",
-        "android_client_info": {
-          "package_name": "com.example.tech_snap"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCp9bJ-g7cFq90AO2kvMC1bREligITtcQI"
+          "current_key": "AIzaSyCaShZNBdMfX1KqsetUgs6ov9ZRrUNyguc"
         }
       ],
       "services": {
